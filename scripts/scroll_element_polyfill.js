@@ -1,0 +1,1 @@
+const scrollElement = window.document.scrollingElement || window.document.body || window.document.documentElement;
