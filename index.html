@@ -11,13 +11,25 @@
     </head>
     <body>
         <div class="container d-flex flex-column align-items-center mt-5">
-            <h1 class="text-center">Question pour une buse</h1>
+            <h1 class="text-center">Question for a nitwit!</h1>
             <div id="survey" class="mt-5">
+
+                <!-- UTILISATEUR -->
+                <form method="post" action="#" id="user-form">
+                    <h3>Your username</h3>
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" class="form-control" id="username" placeholder="Chuck Norris" aria-describedby="user name">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
 
                 <!-- DEPART -->
                 <form method="post" action="#" id="start-survey-form">
-                    <h3></h3>
-                    <div class="mt-3 text-center">Aujourd'hui, je souhaite répondre à</div>
+                    <h3>Question number</h3>
+                    <div class="mt-3 text-center">Today, I'd like to answer</div>
                     <div class="mt-3 text-center">
                         <select id="survey-select" class="form-select form-select-lg mb-3" aria-label="nombre de questions">
                             <option selected>1</option>
@@ -26,7 +38,7 @@
                         <label class="" for="survey-select">questions</label>
                     </div>
                     <div class="mt-3 d-flex justify-content-center">
-                        <button class="btn btn-primary" type="submit">Envoyer</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
 
@@ -36,41 +48,41 @@
                     <div class="mt-3 form-check form-switch">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="cb-1">
                         <label class="form-check-label" for="cb-1">
-                            Default radio
+                            xxx
                         </label>
                     </div>
                     <div class="mt-3">
-                        <button class="btn btn-primary" type="submit">Suivante ></button>
+                        <button class="btn btn-primary" type="submit">Next ></button>
                     </div>
                 </form>
 
                 <!-- SCORE -->
                 <div id="score" class="mt-5">
-                    <h3>Résultats</h3>
+                    <h3>Results</h3>
                     <h2>/</h2>
                     <table class="table mt-3">
                         <thead>
                             <tr>
                                 <th scope="col">Questions</th>
-                                <th scope="col">Vous</th>
+                                <th scope="col">You</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">1</th>
-                                <td>Réponse 2</td>
+                                <td>Answer 2</td>
                                 <td class="text-danger"></td>
                             </tr>
                             <tr>
                                 <th scope="row">Question 2</th>
-                                <td>Réponse 3</td>
-                                <td class="text-danger">Mauvaise réponse</td>
+                                <td>Answer 3</td>
+                                <td class="text-danger">Bad answer</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        <button class="btn btn-primary" type="button">Accueil</button>
+                        <button class="btn btn-primary" type="button">Home</button>
                     </div>
                 </div>
 
