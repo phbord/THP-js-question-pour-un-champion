@@ -9,25 +9,17 @@ class User {
 
     setUser() {
         //SUBMIT
-        this.userForm.addEventListener('submit', (e) => {
-            console.log('xx ');
-            e.preventDefault();
-            //Récupération du nom de l'utilisateur
-            const userVal = this.user.value;
-            console.log('userVal: ',userVal);
+        console.log('this.userForm: ',this.userForm);
+        //Récupération du nom de l'utilisateur
+        const userVal = this.user.value;
+        console.log('SUBMIT > userVal: ',userVal);
 
-            if (userVal) {
-                // Gestion du LocalStorage
-                const obj = {
-                    name: userVal,
-                    points: this.points
-                };
-                this.userArr.push(obj);
-                //if (this.getUser()) this.localStorage.removeItem('username');
-                //localStorage.setItem('username', this.userArr.push(userVal));
-                localStorage.setItem('username', JSON.stringify(this.userArr));
-            }
-        });
+        if (userVal) {
+            //Gestion du LocalStorage
+            const obj = { name: userVal, points: this.points };
+            this.userArr.push(obj);
+            localStorage.setItem('username', JSON.stringify(this.userArr));
+        }
     }
 
     getUser() {

@@ -12,6 +12,7 @@ class Survey {
         this.data = '';
         this.questionCount = 0;
         this.resultGame = [];
+        this.points = 0;
 
         this.isChange = false;
         this.isSingle = false;
