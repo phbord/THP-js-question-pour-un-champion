@@ -70,6 +70,7 @@ class Survey {
     isQuestionValid() {
         const cbVal = document.querySelector('input[type="radio"]:checked').value;
         this.resultGame.push(cbVal);
+        if (cbVal === 'true') this.points += 1;
     }
 
     async showSingleQuestion() {
