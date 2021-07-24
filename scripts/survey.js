@@ -17,35 +17,48 @@ class Survey {
         this.isSingle = false;
         this.isSingleSubmit = false;
 
-        this.user = new User();
-        this.scoreboard = new Scoreboard();
+        this.user = '';
         this.launchSurvey();
     }
 
     launchSurvey() {
+        //SUBMIT
         this.userForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            //Ecran 01 : Enregistrement du nom de l'utilisateur
+            this.user = new User();
             this.user.setUser();
+            //Ecran 02 : Choix du nombre de questions
             this.showQuestionNumber();
             this.changeQuestionNumber();
-            this.showSingleQuestion();
-            this.submitSingleQuestion();
         });
+        //Ecran 03 : Liste des questions
+        this.showSingleQuestion();
+        this.submitSingleQuestion();
+        //Ecran 04 : Score
+        this.showScore();
     }
 
+
+    async showScore() {}
 
     async submitSingleQuestion() {
         const q = setInterval(async () => {
             if (this.isSingleSubmit) {
-                const questionForm = document.querySelector('#question-form');
-                questionForm.addEventListener('submit', e => {
+                const questionForm = await document.querySelector('#question-form');
+                //SUBMIT
+                await questionForm.addEventListener('submit', e => {
                     e.preventDefault();
-
-                    if (this.questionCount < this.number) {
-                        console.log(this.questionCount, ' < ', this.number);
+                    const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
+                    console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
+                    if (this.questionCount < this.number && cbCheckedElt.size > 0) {
                         this.isQuestionValid();
                         this.questionCount += 1;
                         this.showSingleQuestion();
+                        this.submitSingleQuestion();
+                    }
+                    else {
+                        return;
                     }
                 });
                 clearInterval(q);
@@ -65,6 +78,17 @@ class Survey {
                 const items = this.getAllQuestionItems(data);
                 this.survey.innerHTML = this.populateSingleQuestion(data, items);
                 this.isSingleSubmit = true;
+                anime({
+                    targets: '#survey #start-survey-form',
+                    translateX: 500,
+                    duration: 500
+                });
+                anime({
+                    targets: '#survey #question-form',
+                    translateX: 0,
+                    duration: 500,
+                    delay: 1000
+                });
                 clearInterval(q);
             }
         }, 500);
@@ -103,6 +127,7 @@ class Survey {
         const q = setInterval(async () => {
             if (this.isChange) {
                 this.select = document.querySelector('#survey-select');
+                //CHANGE
                 await this.select.addEventListener('change', async (e) => {
                     this.number = parseInt(e.target.value);
                     this.getUrl = `${this.baseUrl}${this.number}`;
@@ -162,8 +187,9 @@ class Survey {
         const content = `
             <form method="post" action="#" id="question-form">
                 <h3>Question ${this.questionCount + 1}/${this.number}</h3>
+                <p class="mt-3"><strong>${data.question}</strong></p>
                 ${items}
-                <div class="mt-3">
+                <div class="mt-5">
                     <button class="btn btn-primary" type="submit">Next ></button>
                 </div>
             </form>

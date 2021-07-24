@@ -13,3 +13,7 @@ h1,h2,h3 {
     width: 100%;
     max-width: 600px;
 }
+
+#question-form {
+    transform: translateX(-500px);
+}
