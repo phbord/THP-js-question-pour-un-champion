@@ -1,6 +1,8 @@
 class User {
     constructor() {
         this.localStorage = localStorage;
+        this.storageName = 'username';
+        this.userVal = '';
         this.userArr = [];
         this.points = 0;
         this.userForm = document.querySelector('#user-form');
@@ -9,20 +11,27 @@ class User {
 
     setUser() {
         //SUBMIT
-        console.log('this.userForm: ',this.userForm);
         //Récupération du nom de l'utilisateur
-        const userVal = this.user.value;
-        console.log('SUBMIT > userVal: ',userVal);
+        this.userVal = this.user.value;
 
-        if (userVal) {
+        if (this.userVal) {
             //Gestion du LocalStorage
-            const obj = { name: userVal, points: this.points };
+            const obj = { name: this.userVal, points: this.points };
             this.userArr.push(obj);
-            localStorage.setItem('username', JSON.stringify(this.userArr));
+            this.localStorage.setItem(this.storageName, JSON.stringify(this.userArr));
+            console.log('localStorage: ', this.localStorage[this.storageName]);
         }
     }
 
     getUser() {
         return this.localStorage.getItem('username');
+    }
+
+    setUserPoints(totalPoints) {
+        const arr = [];
+        userStorage[userStorage.length - 1].points = this.points;
+        arr.push(userStorage);
+        this.localStorage.setItem('username', JSON.stringify(this.arr));
+        console.log('userPointsStorage: ', this.user.getUser());
     }
 }

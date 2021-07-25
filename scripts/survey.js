@@ -9,6 +9,7 @@ class Survey {
         this.surveyForm = document.querySelector('#start-survey-form');
         this.select = document.querySelector('#survey-select');
 
+        this.localStorage = localStorage;
         this.data = '';
         this.questionCount = 0;
         this.resultGame = [];
@@ -45,21 +46,21 @@ class Survey {
 
     async submitSingleQuestion() {
         const q = setInterval(async () => {
+            const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
             if (this.isSingleSubmit) {
-                const questionForm = await document.querySelector('#question-form');
+                const questionForm = document.querySelector('#question-form');
                 //SUBMIT
                 await questionForm.addEventListener('submit', e => {
                     e.preventDefault();
-                    const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
                     console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
-                    if (this.questionCount < this.number && cbCheckedElt.size > 0) {
+                    if (this.questionCount < this.number && cbCheckedElt) {
                         this.isQuestionValid();
                         this.questionCount += 1;
                         this.showSingleQuestion();
                         this.submitSingleQuestion();
                     }
                     else {
-                        return;
+                        //this.user.setUserPoints(this.points);
                     }
                 });
                 clearInterval(q);
