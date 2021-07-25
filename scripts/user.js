@@ -29,9 +29,10 @@ class User {
 
     setUserPoints(totalPoints) {
         const arr = [];
-        userStorage[userStorage.length - 1].points = this.points;
-        arr.push(userStorage);
-        this.localStorage.setItem('username', JSON.stringify(this.arr));
-        console.log('userPointsStorage: ', this.user.getUser());
+        const userStorage = this.localStorage[this.storageName][this.localStorage.length - 1].points;
+        // this.userStorage.points = this.points;
+        // arr.push(userStorage);
+        // this.localStorage.setItem('username', JSON.stringify(this.arr));
+        console.log('::: ', userStorage);
     }
 }

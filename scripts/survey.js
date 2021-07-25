@@ -46,12 +46,12 @@ class Survey {
 
     async submitSingleQuestion() {
         const q = setInterval(async () => {
-            const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
             if (this.isSingleSubmit) {
                 const questionForm = document.querySelector('#question-form');
                 //SUBMIT
                 await questionForm.addEventListener('submit', e => {
                     e.preventDefault();
+                    const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
                     console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
                     if (this.questionCount < this.number && cbCheckedElt) {
                         this.isQuestionValid();
@@ -76,7 +76,7 @@ class Survey {
 
     async showSingleQuestion() {
         const q = setInterval(() => {
-            if (this.isSingle) {
+            if (this.isSingle && this.data.results[this.questionCount]) {
                 const data = this.data.results[this.questionCount];
                 const items = this.getAllQuestionItems(data);
                 this.survey.innerHTML = this.populateSingleQuestion(data, items);
