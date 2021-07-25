@@ -18,6 +18,7 @@ class Survey {
         this.isChange = false;
         this.isSingle = false;
         this.isSingleSubmit = false;
+        this.isScore = false;
 
         this.user = '';
         this.launchSurvey();
@@ -42,25 +43,37 @@ class Survey {
     }
 
 
-    async showScore() {}
+    async showScore() {
+        const q = setInterval(async () => {
+            if (this.isScore) {
+                this.user.setUserPoints(this.points);
+            }
+        }, 500);
+    }
 
     async submitSingleQuestion() {
         const q = setInterval(async () => {
-            if (this.isSingleSubmit) {
+            if (await this.isSingleSubmit) {
+                console.log(' submit1 ',this.isSingleSubmit);
                 const questionForm = document.querySelector('#question-form');
                 //SUBMIT
-                await questionForm.addEventListener('submit', e => {
+                questionForm.addEventListener('submit', async e => {
+                    console.log(' submit2 ',this.isSingleSubmit);
                     e.preventDefault();
                     const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
-                    console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
-                    if (this.questionCount < this.number && cbCheckedElt) {
+                    //console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
+                    if (this.questionCount === this.number - 1 && cbCheckedElt) {
+                        this.isSingleSubmit = false;
+                        this.isScore = true;
+                        console.log(' elseif ',this.isSingleSubmit);
+                        return;
+                    }
+                    else if (this.questionCount < this.number && cbCheckedElt) {
+                        console.log(' if ',this.isSingleSubmit);
                         this.isQuestionValid();
                         this.questionCount += 1;
                         this.showSingleQuestion();
                         this.submitSingleQuestion();
-                    }
-                    else {
-                        //this.user.setUserPoints(this.points);
                     }
                 });
                 clearInterval(q);
@@ -145,7 +158,6 @@ class Survey {
 
     async showQuestionNumber() {
         this.data = await this.getData();
-        console.log('showQuestion => data.results :', this.data.results);
         await this.listData(this.data.results);
     }
 
