@@ -45,8 +45,9 @@ class Survey {
 
     async showScore() {
         const q = setInterval(async () => {
-            if (this.isScore) {
+            if (await this.isScore) {
                 this.user.setUserPoints(this.points);
+                clearInterval(q);
             }
         }, 500);
     }
@@ -54,27 +55,26 @@ class Survey {
     async submitSingleQuestion() {
         const q = setInterval(async () => {
             if (await this.isSingleSubmit) {
-                console.log(' submit1 ',this.isSingleSubmit);
                 const questionForm = document.querySelector('#question-form');
                 //SUBMIT
                 questionForm.addEventListener('submit', async e => {
-                    console.log(' submit2 ',this.isSingleSubmit);
                     e.preventDefault();
                     const cbCheckedElt = document.querySelector('input[type="radio"]:checked');
                     //console.log(this.questionCount ,'))) isCbChecked:', cbCheckedElt);
                     if (this.questionCount === this.number - 1 && cbCheckedElt) {
+                        this.isQuestionValid();
                         this.isSingleSubmit = false;
                         this.isScore = true;
-                        console.log(' elseif ',this.isSingleSubmit);
+                        this.questionCount += 1;
                         return;
                     }
                     else if (this.questionCount < this.number && cbCheckedElt) {
-                        console.log(' if ',this.isSingleSubmit);
                         this.isQuestionValid();
                         this.questionCount += 1;
                         this.showSingleQuestion();
                         this.submitSingleQuestion();
                     }
+                    return;
                 });
                 clearInterval(q);
             }

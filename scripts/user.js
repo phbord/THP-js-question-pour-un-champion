@@ -1,7 +1,6 @@
 class User {
     constructor() {
         this.localStorage = localStorage;
-        this.storageName = 'username';
         this.userVal = '';
         this.userArr = [];
         this.points = 0;
@@ -18,8 +17,8 @@ class User {
             //Gestion du LocalStorage
             const obj = { name: this.userVal, points: this.points };
             this.userArr.push(obj);
-            this.localStorage.setItem(this.storageName, JSON.stringify(this.userArr));
-            console.log('localStorage: ', this.localStorage[this.storageName]);
+            this.localStorage.setItem('username', JSON.stringify(this.userArr));
+            console.log('localStorage: ', this.localStorage['username']);
         }
     }
 
@@ -28,11 +27,12 @@ class User {
     }
 
     setUserPoints(totalPoints) {
-        const arr = [];
-        const userStorage = this.localStorage[this.storageName][this.localStorage.length - 1].points;
-        // this.userStorage.points = this.points;
-        // arr.push(userStorage);
-        // this.localStorage.setItem('username', JSON.stringify(this.arr));
-        console.log('::: ', userStorage);
+        //const userStorage = this.localStorage['username'][this.localStorage.length - 1].points;
+        //const userStorage = JSON.parse(this.localStorage['username']);
+        const userStorage = JSON.parse(this.getUser());
+        //userStorage[this.localStorage.length - 1].points;
+        const obj = { name: this.userVal, points: totalPoints };
+        this.localStorage.setItem('username', JSON.stringify(userStorage));
+        console.log( '::: ', userStorage );
     }
 }
